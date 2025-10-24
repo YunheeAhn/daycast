@@ -10,17 +10,27 @@ body {
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
 
-  padding: 20px;
+  padding: 60px;
   box-sizing: border-box;
 
-  text-align: center;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  box-shadow: inset 0 4px 20px rgba(255, 255, 255, 0.3);
+  border: rgba(0, 0, 0, 0.8);
+  border-radius: 20px;
+
+  width: 50vh;
+  margin: 0 auto;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .weather-box {
-  box-sizing: border-box;
-  border: 2px solid white;
-  border-radius: 10px;
 }
