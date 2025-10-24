@@ -54,7 +54,11 @@ function App() {
     if (city === "") {
       getCurrentLocationWeather();
     } else {
-      getWeatherByCity(city);
+      if (city === "current") {
+        getCurrentLocationWeather();
+      } else {
+        getWeatherByCity(city);
+      }
     }
   }, [city]);
 
