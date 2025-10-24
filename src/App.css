@@ -22,7 +22,7 @@ body {
   /* align-items: center; */
   justify-content: center;
 
-  padding: 60px;
+  padding: 40px;
   box-sizing: border-box;
 
   color: #ffffff;
@@ -126,4 +126,17 @@ button:hover {
   background: var(--white);
   border-color: var(--light);
   color: var(--sub);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 30px;
+  }
+  .button-wrap {
+    flex-wrap: wrap;
+  }
+  .button-wrap button {
+    width: calc((100% - 3px) / 2);
+    flex: auto;
+  }
 }
