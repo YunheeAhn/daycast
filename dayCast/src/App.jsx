@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import WeatherBox from "./component/WeatherBox.jsx";
 import WeatherButtons from "./component/WeatherButtons.jsx";
+import { ClipLoader } from "react-spinners";
 
 // 날씨앱 만들기
 // 1. 앱이 실행 되면 현재 위치기반의 날씨가 보인다.
@@ -16,6 +17,7 @@ function App() {
   const [weather, setWeather] = useState(null);
   const [city, setCity] = useState("");
   const cities = ["Seoul", "New York", "London", "Tokyo"];
+  const [loading, setLoading] = useState(false);
 
   const getCurrentLocationWeather = () => {
     // console.log("현재위치 불러왔어!!!");
@@ -32,22 +34,26 @@ function App() {
     let API_KEY = "/"; // 여기에 실제 API 키를 입력하세요
     let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
 
+    setLoading(true);
     let response = await fetch(url);
     let data = await response.json();
     // console.log("현재 위치 날씨 데이터:", data);
 
     setWeather(data);
+    setLoading(false);
   };
 
   const getWeatherByCity = async (city) => {
     let API_KEY = "/"; // 여기에 실제 API 키를 입력하세요
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
 
+    setLoading(true);
     let response = await fetch(url);
     let data = await response.json();
     // console.log("다른도시?", data);
 
     setWeather(data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -64,10 +70,16 @@ function App() {
 
   return (
     <>
-      <div className="container">
-        <WeatherBox weather={weather} />
-        <WeatherButtons cities={cities} setCity={setCity} />
-      </div>
+      {loading ? (
+        <div className="container">
+          <ClipLoader color="#f86c6b" size={150} loading={loading} />
+        </div>
+      ) : (
+        <div className="container">
+          <WeatherBox weather={weather} />
+          <WeatherButtons cities={cities} setCity={setCity} />
+        </div>
+      )}
     </>
   );
 }
