@@ -1,10 +1,19 @@
+/* 변수 */
+@import url("/src/index.css");
+/* 폰트 */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+/* 영문 */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
 body {
-  background: url("https://gongu.copyright.or.kr/gongu/wrt/cmmn/wrtFileImageView.do?wrtSn=11288960&filePath=L2Rpc2sxL25ld2RhdGEvMjAxNS8wMi9DTFM2OS9OVVJJXzAwMV8wNDQ2X251cmltZWRpYV8yMDE1MTIwMw==&thumbAt=Y&thumbSe=b_tbumb&wrtTy=10006");
+  background: url("https://img.freepik.com/free-photo/vivid-blurred-colorful-background_58702-2563.jpg?semt=ais_hybrid&w=740&q=80");
   height: 100vh;
   margin: 0;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+
+  font-family: var(--eng) !important;
 }
 
 .container {
@@ -17,10 +26,10 @@ body {
   box-sizing: border-box;
 
   color: #ffffff;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(206, 206, 206, 0.15);
   backdrop-filter: blur(2px);
   box-shadow: inset 0 4px 20px rgba(255, 255, 255, 0.3);
-  border: rgba(0, 0, 0, 0.8);
+  border: rgba(206, 206, 206, 0.8);
   border-radius: 20px;
 
   width: 50vh;
@@ -32,5 +41,89 @@ body {
   transform: translate(-50%, -50%);
 }
 
+.loading {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  font-size: 2rem;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+
 .weather-box {
+}
+.city-name {
+  text-transform: uppercase;
+
+  font-size: 1.2rem;
+  letter-spacing: 0;
+}
+.temp-wrap {
+  font-size: 3rem;
+
+  display: flex;
+  align-items: flex-end;
+}
+.temp-wrap p {
+  width: calc(100% - 100px);
+  font-family: var(--eng);
+  letter-spacing: 0;
+  font-weight: 600;
+}
+.temp-wrap span {
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+.temp-wrap img {
+  width: 100px;
+
+  box-sizing: border-box;
+}
+.description {
+  text-align: center;
+
+  font-size: 1.6rem;
+  font-weight: 400;
+  text-transform: uppercase;
+
+  margin: 20px 0 20px;
+}
+
+button {
+  background: var(--light);
+  border: 1px solid transparent;
+
+  box-sizing: border-box;
+  padding: 10px 0;
+
+  border-radius: 30px;
+
+  font-family: var(--kor);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.current-city {
+  width: 100%;
+  margin-bottom: 6px;
+}
+.button-wrap {
+  display: flex;
+  gap: 3px;
+}
+.button-wrap button {
+  flex: 1;
+}
+
+button:hover {
+  background: var(--white);
+  border-color: var(--light);
+  color: var(--sub);
 }
