@@ -13,17 +13,17 @@ const WeatherBox = ({ weather }) => {
   console.log("whether??", weather);
   return (
     <div className="weather-box">
-      <div>{weather?.name}</div>
-      <img src={iconUrl} alt="weather-img"></img>
+      <div className="city-name">{weather?.name}</div>
 
       <div className="temp-wrap">
         <p>
-          {weather ? cel : "로딩중..."} ℃ /
-          <span className="fah"> {weather ? fah : "로딩중..."}°F</span>
+          {weather ? cel : "로딩중..."} ℃
+          <span className="fah"> / {weather ? fah : "로딩중..."}°F</span>
         </p>
+        <img src={iconUrl} alt="weather-img"></img>
       </div>
 
-      <div>{weather?.weather[0].description}</div>
+      <div className="description">{weather?.weather[0].description}</div>
     </div>
   );
 };
