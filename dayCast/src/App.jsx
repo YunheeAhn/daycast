@@ -1,35 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import "./App.css";
+import WeatherBox from "./component/WeatherBox.jsx";
+import WeatherButtons from "./component/WeatherButtons.jsx";
+
+// 날씨앱 만들기
+// 1. 앱이 실행 되면 현재 위치기반의 날씨가 보인다.
+// 2. 날씨 정보 : 도시명, 섭씨, 화씨, 날씨의 상태
+// 3. 총 5개의 버튼이 있다.
+// 3-1. 섭씨 <-> 화씨 변환 버튼
+// 3-2. 현재위치 버튼(이 버튼을 누르면 다시 현재위치기반의 날씨가 보인다.)
+// 3-3. 특정 도시 클릭 버튼 3개(뉴욕, 런던, 도쿄 등)(이 버튼을 누르면 해당 위치기반의 날씨가 보인다.)
+// 4. 버튼을 클릭해서 날씨를 불러 올 때 로딩 스피너가 돈다.
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [weather, setWeather] = useState(null);
+
+  const getCurrentLocationWeather = () => {
+    console.log("현재위치 불러왔어!!!");
+    navigator.geolocation.getCurrentPosition((position) => {
+      let { latitude, longitude } = position.coords;
+      console.log("Latitude:", latitude);
+      console.log("Longitude:", longitude);
+
+      getWeatherByCurrentLocation(latitude, longitude);
+    });
+  };
+
+  const getWeatherByCurrentLocation = async (lat, lon) => {
+    const API_KEY = "/"; // 여기에 실제 API 키를 입력하세요
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
+
+    let response = await fetch(url);
+    let data = await response.json();
+    console.log("현재 위치 날씨 데이터:", data);
+
+    setWeather(data);
+  };
+
+  useEffect(() => {
+    // 현재 위치 기반의 날씨 정보 불러오기
+    getCurrentLocationWeather();
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="container">
+        <WeatherBox weather={weather} />
+        <WeatherButtons />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
