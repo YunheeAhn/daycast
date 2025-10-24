@@ -72,8 +72,9 @@ function App() {
   return (
     <>
       {loading ? (
-        <div className="container">
+        <div className="container loading">
           <ClipLoader color="#f86c6b" size={150} loading={loading} />
+          <p>Loading...</p>
         </div>
       ) : (
         <div className="container">
