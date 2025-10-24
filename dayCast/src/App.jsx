@@ -14,6 +14,9 @@ import { ClipLoader } from "react-spinners";
 // 4. 버튼을 클릭해서 날씨를 불러 올 때 로딩 스피너가 돈다.
 
 function App() {
+  // const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+  const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+
   const [weather, setWeather] = useState(null);
   const [city, setCity] = useState("");
   const cities = ["Seoul", "New York", "London", "Tokyo"];
@@ -31,7 +34,6 @@ function App() {
   };
 
   const getWeatherByCurrentLocation = async (lat, lon) => {
-    let API_KEY = "/"; // 여기에 실제 API 키를 입력하세요
     let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
 
     setLoading(true);
@@ -44,7 +46,6 @@ function App() {
   };
 
   const getWeatherByCity = async (city) => {
-    let API_KEY = "/"; // 여기에 실제 API 키를 입력하세요
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
 
     setLoading(true);
