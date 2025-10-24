@@ -15,9 +15,14 @@ const WeatherBox = ({ weather }) => {
     <div className="weather-box">
       <div>{weather?.name}</div>
       <img src={iconUrl} alt="weather-img"></img>
-      <div>
-        섭씨 {weather ? cel : "로딩중..."}도 / 화씨 {weather ? fah : "로딩중..."}도
+
+      <div className="temp-wrap">
+        <p>
+          {weather ? cel : "로딩중..."} ℃ /
+          <span className="fah"> {weather ? fah : "로딩중..."}°F</span>
+        </p>
       </div>
+
       <div>{weather?.weather[0].description}</div>
     </div>
   );
