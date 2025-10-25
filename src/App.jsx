@@ -21,40 +21,64 @@ function App() {
   const [city, setCity] = useState("");
   const cities = ["Seoul", "New York", "London", "Tokyo"];
   const [loading, setLoading] = useState(false);
+  const [apiError, setAPIError] = useState("");
 
   const getCurrentLocationWeather = () => {
-    // console.log("현재위치 불러왔어!!!");
-    navigator.geolocation.getCurrentPosition((position) => {
-      let { latitude, longitude } = position.coords;
-      // console.log("Latitude:", latitude);
-      // console.log("Longitude:", longitude);
-
-      getWeatherByCurrentLocation(latitude, longitude);
-    });
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        let { latitude, longitude } = position.coords;
+        getWeatherByCurrentLocation(latitude, longitude);
+      },
+      (error) => {
+        setAPIError(error.message || "위치 설정을 허용해주세요 🙏");
+        setWeather(null);
+      }
+    );
   };
 
   const getWeatherByCurrentLocation = async (lat, lon) => {
-    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
+    try {
+      setLoading(true);
 
-    setLoading(true);
-    let response = await fetch(url);
-    let data = await response.json();
-    // console.log("현재 위치 날씨 데이터:", data);
+      let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
 
-    setWeather(data);
-    setLoading(false);
+      let response = await fetch(url);
+      let data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "현재 위치의 날씨를 불러오지 못했습니다.");
+      }
+
+      setWeather(data);
+      setAPIError("");
+    } catch (err) {
+      setAPIError(err.message);
+      setWeather(null);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const getWeatherByCity = async (city) => {
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+    try {
+      setLoading(true);
 
-    setLoading(true);
-    let response = await fetch(url);
-    let data = await response.json();
-    // console.log("다른도시?", data);
+      let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+      let response = await fetch(url);
+      let data = await response.json();
 
-    setWeather(data);
-    setLoading(false);
+      if (!response.ok) {
+        throw new Error(data.message || "날씨 정보를 불러오지 못했습니다.");
+      }
+
+      setWeather(data);
+      setAPIError("");
+    } catch (err) {
+      setAPIError(err.message);
+      setWeather(null);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -73,8 +97,12 @@ function App() {
     <>
       {loading ? (
         <div className="container loading">
-          <ClipLoader color="#f86c6b" size={150} loading={loading} />
+          <ClipLoader size={150} />
           <p>Loading...</p>
+        </div>
+      ) : apiError ? (
+        <div className="container error">
+          <p>{apiError}</p>
         </div>
       ) : (
         <div className="container">
