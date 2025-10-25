@@ -51,7 +51,15 @@ body {
   letter-spacing: 0;
   font-weight: 600;
 }
+.error {
+  color: var(--pink);
 
+  font-size: 1.2rem;
+  font-weight: 600;
+
+  text-transform: uppercase;
+  text-align: center;
+}
 .weather-box {
 }
 .city-name {
@@ -122,13 +130,18 @@ button {
   flex: 1;
 }
 
+button.active {
+  background: var(--white);
+  border: 2px solid var(--sub);
+  color: var(--sub);
+}
 button:hover {
   background: var(--white);
   border-color: var(--light);
   color: var(--sub);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 980px) {
   .container {
     padding: 30px;
   }
@@ -138,5 +151,21 @@ button:hover {
   .button-wrap button {
     width: calc((100% - 3px) / 2);
     flex: auto;
+  }
+
+  .temp-wrap {
+    flex-direction: column;
+    align-items: center;
+  }
+  .temp-wrap p {
+    width: 100%;
+  }
+
+  .temp-wrap img {
+    width: 100%;
+    max-width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
