@@ -13,7 +13,7 @@ const WeatherBox = ({ weather }) => {
   console.log("whether??", weather);
   return (
     <div className="weather-box">
-      <div className="city-name">{weather?.name}</div>
+      <div className="city-name">{weather?.name || "위치를 설정을 허용해주세요"}</div>
 
       <div className="temp-wrap">
         <p>
